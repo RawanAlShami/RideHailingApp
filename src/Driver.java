@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Driver extends Accounts
+public class Driver extends Accounts implements DriverObservers
 {
 	protected ArrayList<Trip> PendingTrips= new ArrayList<Trip>();
 	private String DriversLicense;
@@ -9,12 +9,7 @@ public class Driver extends Accounts
 	protected boolean Found;
 	protected FavAreas favAreas=new FavAreas();
 	ArrayList<String> Notifications= new ArrayList<String>();
-	
-	//The driver should be able to add some areas to get notification when any ride is requested 
-	//and one of these areas is added as the source area. These areas will be called as “favorite 
-	//areas”. 
-	
-	
+	protected Offer offer=new Offer();
 	
 	
 	public Driver(String UName, String Pass, String MobNo, String Mail,  String NatId, String DLicense, Admin A) 
@@ -49,13 +44,20 @@ public class Driver extends Accounts
 	public String GetNationalId()
 	{return NationalId;}
 	
+	//public ArrayList<String> ViewFavAreaRequests(Request r) {
 	public ArrayList<String> ViewFavAreaRequests(Request r) {
 		try {
-			favAreas.notifyDriver(r,this);
+			this.favAreas.notifyDriver(r,this);
 		}catch(Exception e) {
 			System.out.println("Driver Class");
 		}
 		
 	return Notifications;
 	}
-	}
+	
+	//public Trip SuggestPrice(int TripId, double NewPrice)
+	//{
+		
+		//return NewTrip;
+	//}
+}

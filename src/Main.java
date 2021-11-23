@@ -171,7 +171,7 @@ public class Main {
 							try {
 							while(Users.get(UserIndex).LoggedIn)
 							{
-								System.out.println("1 - et2al");
+								System.out.println("1 - View trip offer");
 								System.out.println("2 - Request ride");
 								System.out.println("3 - Register as a driver");
 								System.out.println("4 - logout");
@@ -179,7 +179,14 @@ public class Main {
 								int LoggedChoice=input.nextInt();
 								
 								switch(LoggedChoice) {
-									//Request a ride
+								//view trip offer
+								case 1;
+								{
+									
+									break;
+								}
+								
+								//Request a ride
 									case 2:{
 										String Src,Dest;
 										System.out.println("Please enter Source, Destination(NewLine Seperated): ");
@@ -285,9 +292,6 @@ public class Main {
 							}
 							
 							
-							
-							
-							
 							try {
 							if(Drivers.get(DriversIndex).Accepted)
 							{
@@ -297,7 +301,8 @@ public class Main {
 								System.out.println("2 - Add Favorite Area");
 								System.out.println("3 - View Favorite areas ");
 								System.out.println("4 - View Pending Favorite Area Trips");
-								System.out.println("5 - logout");
+								System.out.println("5 - Suggest A New Price");
+								System.out.println("6 - logout");
 								System.out.println("Choose An Operation: ");
 								int LoggedChoice=input.nextInt();
 								
@@ -305,9 +310,15 @@ public class Main {
 									
 									case 1:
 									{
-										for(int i=0; i<Drivers.get(DriversIndex).Notifications.size();i++) {
-											Drivers.get(DriversIndex).Notifications.get(i);
-										}
+										System.out.println("Notifications:");
+										
+										//for(int j=0;j<Drivers.get(DriversIndex).Notifications.size();j++)
+										try {
+											//System.out.println(Drivers.get(DriversIndex).Notifications.get(j));	
+											Drivers.get(DriversIndex).favAreas.notifyDriver(r,Drivers.get(DriversIndex));
+											}catch(Exception c) {
+												System.out.println("");
+											}
 										break;
 									}
 									
@@ -326,17 +337,38 @@ public class Main {
 									}
 									//View Pending favorite area trips
 									case 4:{
-										try {
-										for(int i=0; i<Drivers.get(DriversIndex).Notifications.size();i++)
-											Drivers.get(DriversIndex).Notifications.get(i);
-											//Drivers.get(DriversIndex).ViewFavAreaRequests(r);
+										try 
+										{
+											Drivers.get(DriversIndex).favAreas.notifyDriver(r,Drivers.get(DriversIndex));
 										}catch(Exception e) {
 											System.out.println("Main");
 										}
 										break;
 									}
+									//Driver suggest new price
+									case 5:
+									{
+										System.out.println("Please Suggest A New Price And Trips ID (NextLine Separated)");
+										double NewPrice=input.nextDouble();
+										int TripId=input.nextInt();
+										
+										Trip T=r.GetTrip(TripId);
+										System.out.println(T.Source +" "+ T.TripId + " " +T.Price);
+										
+										Drivers.get(DriversIndex).offer.OfferNewPrice(T, NewPrice);
+										
+										
+										
+										
+										
+										
+										
+										
+										//Drivers.get(DriversIndex).SuggestPrice(TripId,NewPrice,r);
+										break;
+									}
 									//Driver LogOut
-									case 5:{
+									case 6:{
 										Drivers.get(DriversIndex).LoggedIn=false;
 										Drivers.get(DriversIndex).Found=false;
 										Logged=false;

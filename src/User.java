@@ -21,4 +21,11 @@ public class User extends Accounts
 		Driver D =new Driver(Username, Password,MobileNo,Email,NId,DLicense, A);
 		return D;
 	}
+	public void driverOfferUpdate(double p) {
+		UserTrip.Price=p;
+		System.out.println("User Notified");
+	}
+	public Trip geTrip() {
+		return UserTrip;
+	}
 }

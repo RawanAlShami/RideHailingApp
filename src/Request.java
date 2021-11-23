@@ -63,14 +63,20 @@ public class Request  implements RequestSubject
 
 	@Override
 	public void  notifyObserver() {
-		// TODO Auto-generated method stub
-		ArrayList<String> Notifications= new ArrayList<String>();
+		ArrayList<String> FavAreasUpdate= new ArrayList<String>();
 		for(int i=0;i<Driver.size();i++)
 		{
-			Driver.get(i).favAreas.notifyDriver(this,Driver.get(i));
+			FavAreasUpdate=Driver.get(i).favAreas.notifyDriver(this,Driver.get(i));
+			Driver.get(i).Notifications.addAll(FavAreasUpdate);
 		}
 	}
 	
-	
-	
+	public Trip GetTrip(int id) {
+		
+		for(int i=0;i<PendingTrips.size();i++) {
+			if(PendingTrips.get(i).TripId==id)
+				return PendingTrips.get(i);
+		}
+		return null;
+	}
 }

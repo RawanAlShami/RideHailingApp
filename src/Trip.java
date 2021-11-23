@@ -23,6 +23,7 @@ public class Trip
 	
 	public User GetUser() {return UserInfo;}
 	public Driver GetDriver() {return DriverInfo;}
+	
 
 }
 
