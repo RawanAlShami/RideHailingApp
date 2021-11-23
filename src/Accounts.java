@@ -19,15 +19,10 @@ public abstract class Accounts
 
 	public void Login(String Mail, String Pass) 
 	{
-		if(Mail==Email && Pass==Password)
+		if(Mail.equals(Email)&& Pass.equals(Password))
 		{
 			System.out.println("User / Admin Logged In Successfully");
 			LoggedIn=true;
-		}
-		else
-		{
-			System.out.println("Logged In Unsucessful. Please Ensure That Your Credidentials Are Correct");
-			LoggedIn=false;
 		}
 	}
 }

@@ -15,12 +15,14 @@ public class Admin extends Accounts
 	
 	public void ViewPendingRequests() 
 	{
+		System.out.println("Pending requests:");
 		for (int i = 0;i< PendingDrivers.size(); i++)
             System.out.println(PendingDrivers.get(i).GetDriversLicense() + "	" + PendingDrivers.get(i).GetNationalId());
 	}
 	
 	public void ViewDrivers() 
 	{
+		System.out.println("Drivers:");
 		for (int i = 0;i< Drivers.size(); i++)
             System.out.println(Drivers.get(i).GetDriversLicense() + "	" + Drivers.get(i).GetNationalId());
 	}
@@ -39,9 +41,10 @@ public class Admin extends Accounts
 				PendingDrivers.remove(i);
 				PendingDrivers.trimToSize();
 				System.out.println("Driver Accepted");
+				return;
 			}
-			else
-				System.out.println("Driver Not Found");
+			
 		}
+		System.out.println("Driver Not Found");
 	}
 }
