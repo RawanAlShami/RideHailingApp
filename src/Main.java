@@ -11,6 +11,7 @@ public class Main {
 		Admin Administrator = null;
 		ArrayList<Driver> Drivers= new ArrayList<Driver>();
 		ArrayList<User> Users = new ArrayList<User>();
+		Request r=new Request();
 		//BOOL VARIABLE TO ALLOW FOR CONTINOUS LOOPING AND EXITING UPON CHOICE
 		boolean Repeat=true;
 		while(Repeat)
@@ -44,7 +45,7 @@ public class Main {
 						int AdminMenuChoice=input.nextInt();
 						switch(AdminMenuChoice)
 						{
-							//admin Create account
+							//Admin Create account
 							case 1:
 							{
 								String Username, Password, MobileNumber, Email;
@@ -57,7 +58,7 @@ public class Main {
 								Administrator=A;
 								break;
 							}
-							//admin Login
+							//Admin Login
 							case 2:
 							{
 								String Email, Password;
@@ -143,7 +144,7 @@ public class Main {
 							Users.add(U);
 							break;
 						}
-						//Login
+						//User Login
 						case 2:{
 							String Email, Password;
 							boolean log=true;
@@ -184,8 +185,8 @@ public class Main {
 										System.out.println("Please enter Source, Destination(NewLine Seperated): ");
 										Src=input.next();
 										Dest=input.next();
-										Users.get(UserIndex).CreateTrip(Src, Dest);
-										
+										r.addToPending(Users.get(UserIndex).CreateTrip(Src, Dest));
+										break;
 										
 										
 									}
@@ -252,6 +253,7 @@ public class Main {
 							DriversLiscense=input.next();
 							Driver d=new Driver(Username, Password, MobileNumber, Email, NationalId, DriversLiscense,Administrator);
 							
+							r.addObserver(d);
 							Drivers.add(d);
 							System.out.println("Driver request is pending");
 							break;
@@ -284,20 +286,57 @@ public class Main {
 							
 							
 							
+							
+							
 							try {
 							if(Drivers.get(DriversIndex).Accepted)
 							{
 							while(Logged)
 							{
-								System.out.println("1 - et2al");
-								System.out.println("2 - yaba");
-								System.out.println("3 - yazmeel");
-								System.out.println("4 - logout");
+								System.out.println("1 - View Notifications");
+								System.out.println("2 - Add Favorite Area");
+								System.out.println("3 - View Favorite areas ");
+								System.out.println("4 - View Pending Favorite Area Trips");
+								System.out.println("5 - logout");
 								System.out.println("Choose An Operation: ");
 								int LoggedChoice=input.nextInt();
 								
 								switch(LoggedChoice) {
+									
+									case 1:
+									{
+										for(int i=0; i<Drivers.get(DriversIndex).Notifications.size();i++) {
+											Drivers.get(DriversIndex).Notifications.get(i);
+										}
+										break;
+									}
+									
+									//Add Favorite Area
+									case 2:{
+										System.out.println("Please enter favorite source: ");
+										String src=input.next();
+										Drivers.get(DriversIndex).favAreas.addFavArea(src);
+										break;
+										
+									}
+									// View favorite areas
+									case 3:{
+										Drivers.get(DriversIndex).favAreas.ViewFavArea();
+										break;
+									}
+									//View Pending favorite area trips
 									case 4:{
+										try {
+										for(int i=0; i<Drivers.get(DriversIndex).Notifications.size();i++)
+											Drivers.get(DriversIndex).Notifications.get(i);
+											//Drivers.get(DriversIndex).ViewFavAreaRequests(r);
+										}catch(Exception e) {
+											System.out.println("Main");
+										}
+										break;
+									}
+									//Driver LogOut
+									case 5:{
 										Drivers.get(DriversIndex).LoggedIn=false;
 										Drivers.get(DriversIndex).Found=false;
 										Logged=false;

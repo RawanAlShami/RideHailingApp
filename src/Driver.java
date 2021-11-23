@@ -7,7 +7,8 @@ public class Driver extends Accounts
 	private String NationalId;
 	protected boolean Accepted;
 	protected boolean Found;
-	protected FavAreas favAreas;
+	protected FavAreas favAreas=new FavAreas();
+	ArrayList<String> Notifications= new ArrayList<String>();
 	
 	//The driver should be able to add some areas to get notification when any ride is requested 
 	//and one of these areas is added as the source area. These areas will be called as “favorite 
@@ -23,6 +24,7 @@ public class Driver extends Accounts
 		NationalId=NatId;
 		Accepted=false;
 		A.AddPendingDrivers(this);
+		favAreas = new FavAreas();
 	}
 	
 	@Override
@@ -46,4 +48,14 @@ public class Driver extends Accounts
 	
 	public String GetNationalId()
 	{return NationalId;}
-}
+	
+	public ArrayList<String> ViewFavAreaRequests(Request r) {
+		try {
+			favAreas.notifyDriver(r,this);
+		}catch(Exception e) {
+			System.out.println("Driver Class");
+		}
+		
+	return Notifications;
+	}
+	}

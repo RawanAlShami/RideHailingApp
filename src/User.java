@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class User extends Accounts implements UserSubject
+public class User extends Accounts 
 {
 	protected Trip UserTrip;
 	protected ArrayList<Trip> TripHistory= new ArrayList<Trip>();
@@ -20,11 +20,5 @@ public class User extends Accounts implements UserSubject
 	{
 		Driver D =new Driver(Username, Password,MobileNo,Email,NId,DLicense, A);
 		return D;
-	}
-
-	@Override
-	public void notifyDrivers() {
-		
-		
 	}
 }
