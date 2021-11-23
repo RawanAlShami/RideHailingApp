@@ -7,7 +7,6 @@ public class Main {
 		
 		//WE NEED TO START BY CREATING AN ADMIN FIRST
 		
-		
 		Admin Administrator = null;
 		ArrayList<Driver> Drivers= new ArrayList<Driver>();
 		ArrayList<User> Users = new ArrayList<User>();
@@ -124,16 +123,19 @@ public class Main {
 				case 2:
 				{
 					boolean UserRepeat=true;
-					while(UserRepeat) {
+					while(UserRepeat) 
+					{
 						System.out.println("User Menu:");
 						System.out.println("1 - Create Account");
 						System.out.println("2 - Login");
 						System.out.println("3 - Return To Main Menu");
 						System.out.println("Choose An Operation: ");
 						int UserMenuChoice=input.nextInt();
-						switch(UserMenuChoice) {
+						switch(UserMenuChoice) 
+						{
 						//Create account
-						case 1:{
+						case 1:
+						{
 							String Username, Password, MobileNumber, Email;
 							System.out.println("Enter Username, Password, Mobile Number, Email (NewLine Separated): ");
 							Username=input.next();
@@ -145,12 +147,13 @@ public class Main {
 							break;
 						}
 						//User Login
-						case 2:{
+						case 2:
+						{
 							String Email, Password;
 							boolean log=true;
 							int UserIndex=-1;
-							while(log) {
-							
+							while(log) 
+							{
 								System.out.println("Please Provide Your Email And Password (NewLine Separated): ");
 								Email=input.next();
 								Password=input.next();
@@ -162,12 +165,10 @@ public class Main {
 										UserIndex=i;
 										break;
 									}
-								}
+								}	
 								
-								System.out.println(UserIndex);
 								log=false;
-								
-						}
+							}
 							try {
 							while(Users.get(UserIndex).LoggedIn)
 							{
@@ -178,62 +179,67 @@ public class Main {
 								System.out.println("Choose An Operation: ");
 								int LoggedChoice=input.nextInt();
 								
-								switch(LoggedChoice) {
-								//view trip offer
-								case 1;
+								switch(LoggedChoice) 
 								{
-									
-									break;
-								}
-								
-								//Request a ride
-									case 2:{
+									//view trip offer
+									case 1:
+									{
+										try {
+										Trip P=Users.get(UserIndex).geTrip();
+										if(P.Price==0) 
+											System.out.println("No offers yet");
+										else
+											System.out.println("Price Offer:" +P.Price);
+										}catch(Exception e) {
+											System.out.println("No request yet");
+										}
+										
+										break;
+									}
+									//Request a ride
+									case 2:
+									{
 										String Src,Dest;
 										System.out.println("Please enter Source, Destination(NewLine Seperated): ");
 										Src=input.next();
 										Dest=input.next();
 										r.addToPending(Users.get(UserIndex).CreateTrip(Src, Dest));
-										break;
-										
-										
+										System.out.println("Drivers Notified");
+										break;	
 									}
 									//Become a driver
-									case 3:{
+									case 3:
+									{
 										String nationalId, DriversLicense; 
 										System.out.println("Please enter your nationalID, DriversLicense (NewLine Seperated): ");
 										nationalId=input.next();
 										DriversLicense=input.next();
 										Drivers.add(Users.get(UserIndex).RegisterAsDriver(nationalId, DriversLicense, Administrator));
-										
 										break;
-										
 									}
 									//Logout
-									case 4:{
+									case 4:
+									{
 										Users.get(UserIndex).LoggedIn=false;
 										break;
 									}
 								}
+								}
 							}
-							}
-							catch(Exception e) {
+							catch(Exception e) 
+							{
 								System.out.println("User not found");
 							}
-							
 						}
 						//Return to main menu
-						case 3:{
+						case 3:
+						{
 							UserRepeat=false;
 							break;
 						}
-					
-					
-					
-					
-						
 					}
 				}
-					break;
+				break;
 				}
 				//CASE DRIVER
 				case 3:
@@ -249,7 +255,8 @@ public class Main {
 						switch(DriverMenuChoice) {
 						
 						//Create account
-						case 1:{
+						case 1:
+						{
 							String Username, Password, MobileNumber, Email, NationalId, DriversLiscense;
 							System.out.println("Enter Username, Password, Mobile Number, Email, NationalID, DriversLicense (NewLine Separated): ");
 							Username=input.next();
@@ -285,7 +292,6 @@ public class Main {
 										break;
 									}
 								}
-								System.out.println(DriversIndex);
 								log=false;
 								
 								
@@ -339,6 +345,7 @@ public class Main {
 									case 4:{
 										try 
 										{
+											System.out.println("Pending Requests In Drivers Favorite areas:");
 											Drivers.get(DriversIndex).favAreas.notifyDriver(r,Drivers.get(DriversIndex));
 										}catch(Exception e) {
 											System.out.println("Main");
@@ -352,9 +359,7 @@ public class Main {
 										double NewPrice=input.nextDouble();
 										int TripId=input.nextInt();
 										
-										Trip T=r.GetTrip(TripId);
-										System.out.println(T.Source +" "+ T.TripId + " " +T.Price);
-										
+										Trip T=r.GetTrip(TripId);	
 										Drivers.get(DriversIndex).offer.OfferNewPrice(T, NewPrice);
 										
 										

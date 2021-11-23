@@ -19,7 +19,7 @@ public class FavAreas {
 	}
 	
 	public ArrayList<String>  notifyDriver(Request r,Driver d) {
-		System.out.println("Pending Requests In Drivers Favorite areas:");
+		//System.out.println("Pending Requests In Drivers Favorite areas:");
 		ArrayList<String> Notifications = new ArrayList<String>();
 		try {
 		for(int i=0;i<r.PendingTrips.size();i++)
@@ -37,7 +37,7 @@ public class FavAreas {
 						+"   Price:"+ r.PendingTrips.get(i).Price;
 					Notifications.add(AddNotifiction);
 					
-					System.out.println("Drivers Notified");
+					//System.out.println("Drivers Notified");
 				}
 			}
 		}

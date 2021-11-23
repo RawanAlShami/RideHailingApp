@@ -13,7 +13,7 @@ public class Request  implements RequestSubject
 	
 	public void addToPending(Trip T){
 		PendingTrips.add(T);
-		notifyObserver();
+		//notifyObserver();
 	}
 	
 	
