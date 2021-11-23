@@ -1,18 +1,21 @@
 public class Trip 
 {
 	protected int TripId;
+	protected int counter=0;
 	protected String Source;
 	protected String Destination;
-	protected double Price;
+	protected double Price=0;
 	protected boolean Status;
 	private User UserInfo;
 	private Driver DriverInfo;
 	
-	public Trip(String Src, String Dest, double Cost)
+	
+	public Trip(String Src, String Dest)
 	{
 		Source=Src;
 		Destination=Dest;
-		Price=Cost;
+		TripId=counter++;
+		Status=false;
 	}
 	
 	public void SetUser(User U) {UserInfo=U;}

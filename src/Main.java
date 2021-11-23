@@ -44,7 +44,7 @@ public class Main {
 						int AdminMenuChoice=input.nextInt();
 						switch(AdminMenuChoice)
 						{
-							//Create account
+							//admin Create account
 							case 1:
 							{
 								String Username, Password, MobileNumber, Email;
@@ -57,7 +57,7 @@ public class Main {
 								Administrator=A;
 								break;
 							}
-							//Login
+							//admin Login
 							case 2:
 							{
 								String Email, Password;
@@ -171,13 +171,36 @@ public class Main {
 							while(Users.get(UserIndex).LoggedIn)
 							{
 								System.out.println("1 - et2al");
-								System.out.println("2 - yaba");
-								System.out.println("3 - yazmeel");
+								System.out.println("2 - Request ride");
+								System.out.println("3 - Register as a driver");
 								System.out.println("4 - logout");
 								System.out.println("Choose An Operation: ");
 								int LoggedChoice=input.nextInt();
 								
 								switch(LoggedChoice) {
+									//Request a ride
+									case 2:{
+										String Src,Dest;
+										System.out.println("Please enter Source, Destination(NewLine Seperated): ");
+										Src=input.next();
+										Dest=input.next();
+										Users.get(UserIndex).CreateTrip(Src, Dest);
+										
+										
+										
+									}
+									//Become a driver
+									case 3:{
+										String nationalId, DriversLicense; 
+										System.out.println("Please enter your nationalID, DriversLicense (NewLine Seperated): ");
+										nationalId=input.next();
+										DriversLicense=input.next();
+										Drivers.add(Users.get(UserIndex).RegisterAsDriver(nationalId, DriversLicense, Administrator));
+										
+										break;
+										
+									}
+									//Logout
 									case 4:{
 										Users.get(UserIndex).LoggedIn=false;
 										break;
@@ -189,6 +212,11 @@ public class Main {
 								System.out.println("User not found");
 							}
 							
+						}
+						//Return to main menu
+						case 3:{
+							UserRepeat=false;
+							break;
 						}
 					
 					
