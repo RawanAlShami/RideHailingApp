@@ -1,5 +1,7 @@
-public abstract class Accounts 
+//ABSTRACT CLASS TO ENCAPSULATE ALL ACCOUNTS
+public abstract class Accounts
 {
+	//MEMBER VARIABLES
 	protected String Username;
 	protected String Password;
 	protected int UserID;
@@ -8,6 +10,7 @@ public abstract class Accounts
 	protected String MobileNo;
 	protected boolean LoggedIn=false;
 	
+	//SUPER CONSTRUCTOR
 	public Accounts(String UName, String Pass,String MobNo, String Mail)
 	{
 		Username=UName;
@@ -16,13 +19,11 @@ public abstract class Accounts
 		Email=Mail;
 		UserID=UserIdCounter++;
 	}
-
+	
+	//LOGIN FUNCTION
 	public void Login(String Mail, String Pass) 
 	{
-		if(Mail.equals(Email)&& Pass.equals(Password))
-		{
-			System.out.println("User / Admin Logged In Successfully");
+		if(Mail.equals(Email) && Pass.equals(Password))
 			LoggedIn=true;
-		}
 	}
 }
