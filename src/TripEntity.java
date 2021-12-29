@@ -10,6 +10,8 @@ public class TripEntity
 	private UserEntity UserInfo;
 	private DriverEntity DriverInfo;
 	
+	public TripEntity() {}
+	
 	//CONSTRUCTOR
 	public TripEntity(String Src, String Dest)
 	{
@@ -26,5 +28,20 @@ public class TripEntity
 	//TRIPS' USER AND DRIVER GETTERS
 	public UserEntity GetUser() {return UserInfo;}
 	public DriverEntity GetDriver() {return DriverInfo;}
+	
+	public int GetTripID()
+	{return TripId;}
+	
+	public String GetSource()
+	{return Source;}
+	
+	public String GetDestination()
+	{return Destination;}
+	
+	public double GetPrice()
+	{return Price;}
+	
+	public void SetPrice(double price)
+	{Price=price;}
 }
 

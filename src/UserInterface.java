@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserInterface 
 {
 	//CONTROLLERS
-	protected UserController UserController=new UserController();
+	protected UserController UserController=new UserController(); 
 	
 	//FUNCTION TO ACCESS USER MENU
 	public void ShowMenu()
@@ -38,14 +39,20 @@ public class UserInterface
 				{
 					String Email, Password;
 					boolean log=true;
+					boolean UserLoggedMenu=true;
 					while(log) 
 					{
 						System.out.println("Please Provide Your Email And Password (NewLine Separated): ");
 						Email=input.next();
 						Password=input.next();
 						CurrentUser=UserController.LogIn(Email, Password);
-						if(CurrentUser.equals(null))
-							{System.out.println("Email And Password Not Found");}
+						if(CurrentUser==null)
+						{
+							System.out.println("Email And Password Not Found");
+							UserLoggedMenu=false;
+							log=false;
+							
+						}
 						else
 						{
 							log=false;
@@ -54,7 +61,7 @@ public class UserInterface
 					}
 					try 
 					{
-						boolean UserLoggedMenu=true;
+						
 						while(UserLoggedMenu)
 						{
 							System.out.println("1 - View trip offer");
@@ -69,44 +76,45 @@ public class UserInterface
 								//VIEW TRIP OFFER
 								case 1:
 								{
-									/*
-									try 
+									ArrayList<TripEntity> TripOffers=UserController.GetOffer(CurrentUser);
+									if(TripOffers.get(0)==null)
 									{
-										Trip P=Users.get(UserIndex).geTrip();
-										if(P.Price==0) 
-											System.out.println("No offers yet");
-										else
-											System.out.println("Price Offer:" +P.Price);
+										System.out.println("No Offers Yet");
 									}
-									catch(Exception e) 
-									{
-										System.out.println("No request yet");
-									}	
-									*/
+									else {
+										System.out.println("Offers:");
+										for(int i=0;i<TripOffers.size();i++)
+										{
+											System.out.println("ID:"+TripOffers.get(i).GetTripID()+
+											"  Source:"+TripOffers.get(i).GetSource()+
+											"  Destination:"+TripOffers.get(i).GetDestination()+
+											"  Price:"+TripOffers.get(i).GetPrice()+
+											"  DriverName:"+TripOffers.get(i).GetDriver().Username+
+											"  DriverID:"+TripOffers.get(i).GetDriver().UserID+
+											"  DriverMobileNumber:"+TripOffers.get(i).GetDriver().MobileNo);
+										}
+									}
 									break;
 								}
 								//REQUEST A RIDE
 								case 2:
 								{
-									/*
+									
 									String Src,Dest;
 									System.out.println("Please enter Source, Destination(NewLine Seperated): ");
 									Src=input.next();
 									Dest=input.next();
-									r.addToPending(Users.get(UserIndex).CreateTrip(Src, Dest));
-									*/
+									UserController.CreateTrip(Src, Dest, CurrentUser);
 									break;								
 								}
 								//Become a driver
 								case 3:
 								{
-									/*
 									String nationalId, DriversLicense; 
 									System.out.println("Please enter your nationalID, DriversLicense (NewLine Seperated): ");
 									nationalId=input.next();
 									DriversLicense=input.next();
-									Drivers.add(Users.get(UserIndex).RegisterAsDriver(nationalId, DriversLicense, Administrator));	
-									*/					
+									UserController.RegisterAsDriver(nationalId, DriversLicense, CurrentUser);			
 									break;
 										
 								}
@@ -135,6 +143,5 @@ public class UserInterface
 				}
 			}
 		}
-		//input.close();
 	}
 }

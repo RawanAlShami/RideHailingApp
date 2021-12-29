@@ -1,23 +1,30 @@
+import java.util.ArrayList;
+
 public class AdminController 
 {
 	//DRIVER MODEL OBJECT
 	protected DriverModel DriverModel=new DriverModel();
 	protected AdminModel AdminModel=new AdminModel();
 	
-	//FUNCTION TO VIEW PENDING REQUESTS
-	public void ViewPendingRequests() 
+	
+	public void CreateAdmin(String Username,String  Password,String  MobileNumber,String  Email)
 	{
-		System.out.println("Pending requests:");
-		for (int i = 0;i<DriverModel.PendingDrivers.size(); i++)
-            System.out.println(DriverModel.PendingDrivers.get(i).GetDriversLicense() + "	" + DriverModel.PendingDrivers.get(i).GetNationalId());
+		AdminEntity AdminEntity=new AdminEntity(Username, Password, MobileNumber, Email);
+		AdminModel.SetAdmin(AdminEntity);
 	}
 	
-	//FUNCTION TO VIEW ALL VERIFIED DRIVERS
-	public void ViewDrivers() 
+	//FINDS USER AND LOGS THEM IN
+	public AdminEntity LogIn(String Email, String Password)
 	{
-		System.out.println("Drivers:");
-		for (int i = 0;i<DriverModel.Drivers.size(); i++)
-            System.out.println(DriverModel.Drivers.get(i).GetDriversLicense() + "	" + DriverModel.Drivers.get(i).GetNationalId());
+				
+		AdminEntity Admin=AdminModel.GetAdmin();
+				
+		if(Admin!=null && Admin.Email.equals(Email) && Admin.Password.equals(Password))
+		{
+			return Admin;
+		}
+		//CHECKS IN INTERFACE IF NULL-> USER NOT FOUND. REENTER EMAIL AND PASSWORD
+		return null;
 	}
 	
 	//FUNCTION TO ADD PENDING DRIVER TO LLIST OF PENDING DRIVERS
@@ -25,20 +32,19 @@ public class AdminController
 	{DriverModel.PendingDrivers.add(D);}
 	
 	//FUNCTION TO VERIFY A PENDING DRIVER
-	public void VerifyDriversRegistration(String NationalID)
+	public boolean VerifyDriversRegistration(String NationalID)
 	{
-		for(int i=0;i<DriverModel.PendingDrivers.size();i++)
+		ArrayList<DriverEntity> PendingDrivers=DriverModel.GetPendingDrivers();
+		for(int i=0;i<PendingDrivers.size();i++)
 		{
-			if(NationalID.equals(DriverModel.PendingDrivers.get(i).GetNationalId()))
+			if(NationalID.equals(PendingDrivers.get(i).GetNationalId()))
 			{
-				DriverModel.PendingDrivers.get(i).Accepted=true;
-				DriverModel.Drivers.add(DriverModel.PendingDrivers.get(i));
-				DriverModel.PendingDrivers.remove(i);
-				DriverModel.PendingDrivers.trimToSize();
-				System.out.println("Driver Accepted");
-				return;
+				PendingDrivers.get(i).Accepted=true;
+				DriverModel.AddToDrivers(PendingDrivers.get(i));
+				DriverModel.RemoveFromPending(PendingDrivers.get(i));
+				return true;
 			}
 		}
-		System.out.println("Driver Not Found");
+		return false;
 	}
 }

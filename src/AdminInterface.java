@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminInterface 
 {
-	//ONE GENERAL SYSTEM ADMIN
-	protected AdminEntity Administrator=null;
+	protected AdminEntity Administrator;
+	protected AdminController AdminController=new AdminController();
 	
 	//SHOW MENU THROUGH INTERFACE
 	public void ShowMenu()
@@ -29,9 +30,9 @@ public class AdminInterface
 					Password=input.next();
 					MobileNumber=input.next();
 					Email=input.next();
-					AdminEntity Admin=new AdminEntity(Username, Password, MobileNumber, Email);
-					Administrator=Admin;
-					Admin.AdminController.AdminModel.Admins.add(Admin);
+					AdminController.CreateAdmin(Username, Password, MobileNumber, Email);
+					Administrator=AdminController.AdminModel.GetAdmin();
+					System.out.println("Account Created Successfully");
 					break;
 				}
 				
@@ -40,13 +41,28 @@ public class AdminInterface
 				{
 					String Email, Password;
 					boolean Logged=true;
-					while(!Administrator.LoggedIn)
+					boolean log=true;
+					while(log)
 					{
 						System.out.println("Please Provide Your Email And Password (NewLine Separated): ");
 						Email=input.next();
 						Password=input.next();
-						Administrator.Login(Email, Password);
+						Administrator=AdminController.LogIn(Email, Password);
+						if(Administrator==null)
+						{
+							System.out.println("Email And Password Not Found");
+							Logged=false;
+							log=false;
+							
+						}
+						else
+						{
+							log=false;
+							System.out.println("Logged In Successfully");
+						}	
 					}
+					try 
+					{
 					while(Logged)
 					{
 						System.out.println("1 - View Pending Drivers Requests");
@@ -59,21 +75,34 @@ public class AdminInterface
 							//VIEW PENDING DRIVERS REQUESTS
 							case 1:
 							{
-								Administrator.AdminController.ViewPendingRequests();
+								ArrayList<DriverEntity> PendingDrivers=AdminController.DriverModel.GetPendingDrivers();
+								System.out.println("Pending requests:");
+								for (int i = 0;i<PendingDrivers.size(); i++)
+						            System.out.println(PendingDrivers.get(i).GetDriversLicense() + "	" + PendingDrivers.get(i).GetNationalId());
 								break;
 							}
 							//VIEW DRIVERS
 							case 2:
 							{
-								Administrator.AdminController.ViewDrivers();
+								ArrayList<DriverEntity> Drivers=AdminController.DriverModel.GetDrivers();
+								System.out.println("Drivers:");
+								for (int i = 0;i<Drivers.size(); i++)
+						            System.out.println(Drivers.get(i).GetDriversLicense() + "	" + Drivers.get(i).GetNationalId());
 								break;
 							}
 							//VERIFY PENDING DRIVER REQUESTS
 							case 3:
 							{
+								boolean Verified;
+								
 								System.out.println("Please Enter Drivers National ID To Be Verified: ");
 								String NationalID=input.next();
-								Administrator.AdminController.VerifyDriversRegistration(NationalID);
+								
+								Verified=AdminController.VerifyDriversRegistration(NationalID);
+								if(Verified)
+									System.out.println("Driver Accepted");
+								else
+									System.out.println("Driver Not Found");
 								break;
 							}
 							//LOGOUT
@@ -85,6 +114,11 @@ public class AdminInterface
 							}
 						}
 					}
+					}
+					catch(Exception e) 
+					{
+						System.out.println("");
+					}
 					break;
 				}
 				//RETURN TO MAIN MENU
@@ -95,6 +129,5 @@ public class AdminInterface
 				}
 			}
 		}
-		//input.close();
 	}
 }

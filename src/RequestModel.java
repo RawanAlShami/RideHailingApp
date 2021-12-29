@@ -2,14 +2,19 @@ import java.util.ArrayList;
 
 public class RequestModel  implements RequestSubject
 {
-	protected ArrayList<TripEntity> PendingTrips = new ArrayList<TripEntity>();
+	protected static ArrayList<TripEntity> PendingTrips = new ArrayList<TripEntity>();
 	
-	protected ArrayList<TripEntity> ActiveTrips = new ArrayList<TripEntity>();
+	protected static ArrayList<TripEntity> ActiveTrips = new ArrayList<TripEntity>();
 	
-	protected ArrayList<TripEntity> TripHistory = new ArrayList<TripEntity>();
+	protected static ArrayList<TripEntity> TripHistory = new ArrayList<TripEntity>();
 	
-	protected ArrayList<DriverEntity> Driver = new ArrayList<DriverEntity>();
+	//CRUD
+	public ArrayList<TripEntity> GetTripHistory()
+	{return TripHistory;}
 	
+	//CRUD
+	public ArrayList<TripEntity> GetPendingTrips()
+	{return PendingTrips;}
 	
 	public void addToPending(TripEntity T)
 	{
@@ -41,14 +46,14 @@ public class RequestModel  implements RequestSubject
 
 	public void addObserver(DriverEntity d) {
 		// TODO Auto-generated method stub
-		Driver.add(d);
+		//Driver.add(d);
 		//System.out.println("Driver D:" + d.GetDriversLicense()+" Accepted:"+ d.Accepted);
 		
 	}
 	
 	public void removeObserver(DriverEntity d) {
 		// TODO Auto-generated method stub
-		Driver.remove(d);
+		//Driver.remove(d);
 	}
 
 
@@ -65,12 +70,5 @@ public class RequestModel  implements RequestSubject
 		*/
 	}
 	
-	public TripEntity GetTrip(int id) {
-		
-		for(int i=0;i<PendingTrips.size();i++) {
-			if(PendingTrips.get(i).TripId==id)
-				return PendingTrips.get(i);
-		}
-		return null;
-	}
+	
 }

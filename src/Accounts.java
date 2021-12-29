@@ -26,4 +26,5 @@ public abstract class Accounts
 		if(Mail.equals(Email) && Pass.equals(Password))
 			LoggedIn=true;
 	}
+
 }

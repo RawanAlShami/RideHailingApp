@@ -53,9 +53,6 @@ public class main
 					break;
 				}
 			}
-			/*if(input.hasNextLine()) {
-		        input.nextLine();
-		    }*/
 		}
 		input.close();
 		System.out.println("System Terminated");
