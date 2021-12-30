@@ -8,6 +8,7 @@ import com.example.demo.application.IUserService;
 import com.example.demo.application.IDriverService;
 import com.example.demo.application.UserService;
 import com.example.demo.Core.DriverEntity;
+import com.example.demo.Core.TripEntity;
 import com.example.demo.Core.UserEntity;
 import com.example.demo.application.DriverService;
 
@@ -49,6 +50,45 @@ public class DriverController {
 	public String LogOut() {
 		return DriverService.LogOut();
 	}
+    
+   @GetMapping("/ViewFavAreas")
+	public ArrayList<String> ViewFavAreas() {
+		return DriverService.ViewFavAreas();
+	}
+    
+    @GetMapping("/AddFavAreaSrc/{src}")
+   	public String AddFavAreaSrc(@PathVariable String src)
+   	{	
+   		if(DriverService.AddFavAreaSrc(src))
+   			return "Source Added";
+   		else
+   			return "Failed To Add Source";
+   	}
+    
+    @GetMapping("/GetPendingFavAreaTrips")
+   	public ArrayList<TripEntity> GetPendingFavAreaTrips() {
+   		return DriverService.GetPendingFavAreaTrips();
+   	}
+    
+    @GetMapping("/ViewAllPendingTrips")
+   	public ArrayList<TripEntity> ViewAllPendingTrips() {
+   		return DriverService.ViewAllPendingTrips();
+   	}
+    
+    @GetMapping("/OfferPrice/{tripId}/{price}")
+   	public String OfferPrice(@PathVariable int tripId,@PathVariable double price) {
+   		
+    	if(DriverService.OfferPrice(tripId,price))
+    		return "Offer Sent To User";
+    	else
+    		return "Cannot Find Trip Id";
+   	}
+    
+    @GetMapping("/ViewActiveTrips")
+   	public ArrayList<TripEntity> GetActiveTrips() {
+   		return DriverService.GetActiveTrips();
+   	}
+    
     
     
     

@@ -21,22 +21,31 @@ public class RequestPersistence  //implements RequestSubject
 	public ArrayList<TripEntity> GetPendingTrips()
 	{return PendingTrips;}
 	
+	public ArrayList<TripEntity> GetActiveTrips()
+	{return ActiveTrips;}
+	
 	public void addToPending(TripEntity T)
 	{
 		PendingTrips.add(T);
-		//notifyObserver();
 	}
 	
-	
-	public void PendingToActive(TripEntity T) 
+	public void RemoveFromPending(int id)
 	{
-		try {
-		ActiveTrips.add(T);
-		PendingTrips.remove(T);
-		}catch(Exception e) {
-			System.out.println("Trip Not Found!");
+		for(int i=0;i<PendingTrips.size();i++)
+		{
+			if(PendingTrips.get(i).getTripId()==id)
+			{
+				PendingTrips.remove(i);
+				PendingTrips.trimToSize();
+			}
 		}
+		
+		
 	}
+	
+	
+	public void AddToActive(TripEntity T) 
+	{ActiveTrips.add(T);}
 	
 	
 	public void ActiveToHistory(TripEntity T) {

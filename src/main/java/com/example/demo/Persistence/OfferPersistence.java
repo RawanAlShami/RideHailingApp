@@ -10,9 +10,15 @@ public class OfferPersistence {
 		public void AddToAllOffers(TripEntity TripEntity)
 		{AllOffers.add(TripEntity);}
 		
-		public void RemoveFromAllOffers(TripEntity TripEntity)
+		public void RemoveFromAllOffers(int id)
 		{
-			AllOffers.remove(TripEntity);
+			for(int i=0;i<AllOffers.size();i++)
+			{
+				if(AllOffers.get(i).getTripId()==id)
+				{
+					AllOffers.remove(i);
+				}
+			}
 			AllOffers.trimToSize();
 		}
 		

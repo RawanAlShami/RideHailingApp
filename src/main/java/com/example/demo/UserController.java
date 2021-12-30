@@ -40,7 +40,7 @@ public class UserController
 	
 	@GetMapping("/UserLogIn/{email}/{password}")
 	public UserEntity LogIn(@PathVariable String email,@PathVariable String password)
-	{	return UserService.LogIn(email, password);	}
+	{	return UserService.LogIn(email, password);}
 	
 	@GetMapping("/UserLogOut")
 	public String LogOut() 
@@ -50,6 +50,29 @@ public class UserController
 	public TripEntity CreateTrip(@PathVariable String Src,@PathVariable String Dest)
 	{return UserService.CreateTrip(Src, Dest);}
 	
+	@GetMapping("/GetOffers")
+	public ArrayList<TripEntity> GetOffers()
+	{return UserService.GetOffers();}
+	
+	@GetMapping("/RegisterAsDriver/{NId}/{DLicense}")
+	public String RegisterAsDriver(@PathVariable String NId,@PathVariable String DLicense)
+	{
+		if(UserService.RegisterAsDriver(NId, DLicense))
+			return "Driver Account Created, Request Is Pending";
+		else
+			return "Could Not Create Driver Account";
+	}
+	
+	@GetMapping("/AcceptOffer/{TripId}/{price}/{drivername}")
+	public String AcceptOffer(@PathVariable int TripId,@PathVariable double price,@PathVariable String drivername)
+	{
+		if(UserService.AcceptOffer(TripId, price, drivername))
+		{
+			return "Offer Accepted & Driver Nodified";
+		}
+		else
+			return "Offer Not Found";
+	}
+	
 	
 }
-//@PostMapping("/GetUser/{id}/AddRide")

@@ -15,13 +15,9 @@ public class DriverService implements IDriverService {
 	private RequestPersistence RequestPersistence=new RequestPersistence();
 	private DriverPersistence DriverPersistence=new DriverPersistence();
 	private DriverEntity CurrentDriver;
+	private OfferService OfferService=new OfferService();
 	
 	
-	@Override
-	public ArrayList<TripEntity> GetPendingFavAreaTrips(DriverEntity DriverEntity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public boolean CreateDriver(DriverEntity DriverEntity) {
@@ -69,6 +65,53 @@ public class DriverService implements IDriverService {
 		} 
 		return null;
 	}
+	
+	@Override
+	public ArrayList<String> ViewFavAreas()
+	{
+		return CurrentDriver.getFavAreas().GetFavAreasModel();
+	}
+	
+	@Override
+	public boolean AddFavAreaSrc(String src)
+	{
+		return CurrentDriver.getFavAreas().addFavArea(src);
+	}
+
+	@Override
+	public ArrayList<TripEntity> GetPendingFavAreaTrips() {
+		ArrayList<TripEntity> Notifications = new ArrayList<TripEntity>();
+		ArrayList<TripEntity> PendingTrips=RequestPersistence.GetPendingTrips();
+		for(int i=0;i<PendingTrips.size();i++)
+		{
+				
+			for(int j=0;j<CurrentDriver.getFavAreas().GetFavAreasModel().size();j++)
+			{
+				if(PendingTrips.get(i).getSource().contains(CurrentDriver.getFavAreas().GetFavAreasModel().get(j)))
+				{
+					Notifications.add(PendingTrips.get(i));
+				}
+			}
+		}
+		return Notifications;
+	}
+
+	@Override
+	public ArrayList<TripEntity> ViewAllPendingTrips() {
+		return RequestPersistence.GetPendingTrips();
+	}
+
+	@Override
+	public boolean OfferPrice(int TripId, double Price) {
+		return OfferService.OfferNewPrice(Price, TripId, CurrentDriver);
+	}
+
+	@Override
+	public ArrayList<TripEntity> GetActiveTrips() {
+		return RequestPersistence.GetActiveTrips();
+	}
+
+
 
 	
 

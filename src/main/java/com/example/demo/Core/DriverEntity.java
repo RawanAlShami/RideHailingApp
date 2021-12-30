@@ -1,19 +1,29 @@
 package com.example.demo.Core;
+
+import com.example.demo.Persistence.FavAreasPersistence;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class DriverEntity extends Accounts
 {
 	//MEMBER VARIABLES
 	private String DriversLicense;
 	private String NationalId;
 	protected boolean Accepted;
-	protected boolean Found;
 	
-	//***********protected FavAreasModel FavAreas=new FavAreasModel();
+	@JsonIgnore
+	protected FavAreasPersistence FavAreas=new FavAreasPersistence();
 	
 	//CONSTRUCTOR
 	public DriverEntity()
 	{
 		UserID=UserIdCounter++;
 	}
+	
+	@JsonIgnore
+	public FavAreasPersistence getFavAreas() {
+		return FavAreas;
+	}
+	
 	
 	public DriverEntity(String UName, String Pass, String MobNo, String Mail,  String NatId, String DLicense) 
 	{
@@ -59,27 +69,13 @@ public class DriverEntity extends Accounts
 		Accepted = accepted;
 	}
 
-
-
-	public boolean isFound() {
-		return Found;
-	}
-
-
-
-	public void setFound(boolean found) {
-		Found = found;
-	}
-
-
-
 	//PRIVATE MEMBER VARIABLES GETTERS
 	public String GetDriversLicense()
 	{return DriversLicense;}
 	
 	public String GetNationalId()
 	{return NationalId;}
-	
+
 	
 	
 }

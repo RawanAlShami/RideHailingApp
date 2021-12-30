@@ -3,6 +3,7 @@ package com.example.demo.application;
 import java.util.ArrayList;
 
 import com.example.demo.Core.Accounts;
+import com.example.demo.Core.DriverEntity;
 import com.example.demo.Core.TripEntity;
 import com.example.demo.Core.UserEntity;
 import com.example.demo.Persistence.UserPersistence;
@@ -54,9 +55,11 @@ public class UserService implements IUserService
 	}
 
 	@Override
-	public void RegisterAsDriver(String NId, String DLicense, UserEntity UserEntity) {
-		// TODO Auto-generated method stub
+	public boolean RegisterAsDriver(String NId, String DLicense) {
+		DriverEntity DriverEntity =new DriverEntity(CurrentUser.getUsername(), CurrentUser.getPassword()
+		,CurrentUser.getMobileNo(),CurrentUser.getEmail(),NId,DLicense);
 		
+		return DriverPersistence.AddToPending(DriverEntity);
 	}
 
 	@Override
@@ -81,8 +84,51 @@ public class UserService implements IUserService
 	}
 
 	@Override
-	public ArrayList<TripEntity> GetOffer(UserEntity UserEntity) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<TripEntity> GetOffers() {
+		 ArrayList<TripEntity> Offer=new ArrayList<TripEntity>();
+		 ArrayList<TripEntity> DriverOffers=OfferPersistence.GetAllOffers();
+		 for(int i=0;i<DriverOffers.size();i++)
+		 {
+			 if(DriverOffers.get(i).GetUser().GetID()==CurrentUser.getUserID())
+			 {
+				 Offer.add(DriverOffers.get(i));
+			 }
+		 }
+		 if(Offer.isEmpty())
+				Offer.add(null);
+		 
+		 return Offer;
+	 }
+
+	@Override
+	public boolean AcceptOffer(int TripId, double price, String drivername) {
+		ArrayList<TripEntity> DriverOffers=OfferPersistence.GetAllOffers();
+		boolean TripRemover=false;
+		for(int i=0;i<DriverOffers.size();i++)
+		 {
+			if(DriverOffers.get(i).getTripId()==TripId && DriverOffers.get(i).getPrice()==price)
+			{
+				if(DriverOffers.get(i).GetDriver().getUsername().equals(drivername))
+				{
+					DriverOffers.get(i).setOfferAcceptance(true);
+					RequestPersistence.AddToActive(DriverOffers.get(i));
+					TripRemover=true;
+				}
+			}
+		 }
+		
+		RequestPersistence.RemoveFromPending(TripId);
+		OfferPersistence.RemoveFromAllOffers(TripId);
+		
+		return TripRemover;
+		
+		
+		
+		
+		
+		
+		
 	}
+	
 }
+

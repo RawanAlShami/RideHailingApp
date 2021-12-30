@@ -16,13 +16,16 @@ public interface IUserService
 	
 	UserEntity LogIn(String Email, String Password);
 	
-	 void RegisterAsDriver(String NId, String DLicense,UserEntity UserEntity);
+	 boolean RegisterAsDriver(String NId, String DLicense);
 	 
 	 String LogOut();
 	 
 	 TripEntity CreateTrip(String Src,String Dest);
 	 
-	 ArrayList<TripEntity> GetOffer(UserEntity UserEntity);
+	 ArrayList<TripEntity> GetOffers();
+	 
+	 boolean AcceptOffer(int TripId,double price,String drivername);
+	
 	 
 	 
 	

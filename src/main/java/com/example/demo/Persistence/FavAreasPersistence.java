@@ -7,10 +7,10 @@ public class FavAreasPersistence {
 	
 	
 	
-	public void addFavArea(String src) 
-	{favSrc.add(src);}
+	public boolean addFavArea(String src) 
+	{return favSrc.add(src);}
 	
-	public ArrayList<String> GetFavAreas()
+	public ArrayList<String> GetFavAreasModel()
 	{return favSrc;}
 }
 

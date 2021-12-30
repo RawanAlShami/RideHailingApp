@@ -9,8 +9,6 @@ import com.example.demo.Core.UserEntity;
 
 public interface IDriverService {
 	
-	ArrayList<TripEntity>  GetPendingFavAreaTrips(DriverEntity DriverEntity);
-	
 	boolean CreateDriver(DriverEntity DriverEntity );
 	
 	DriverEntity LogIn(String Email, String Password);
@@ -18,7 +16,16 @@ public interface IDriverService {
 	DriverEntity GetDriver(int id);
 
 	String LogOut();
+
+	ArrayList<String> ViewFavAreas();
 	
+	ArrayList<TripEntity> ViewAllPendingTrips();
 	
-   
+	ArrayList<TripEntity> GetPendingFavAreaTrips();
+
+	boolean AddFavAreaSrc(String src);
+	
+	boolean OfferPrice(int TripId,double Price);
+	
+	ArrayList<TripEntity> GetActiveTrips();
 }
