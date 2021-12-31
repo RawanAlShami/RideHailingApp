@@ -2,7 +2,6 @@ package com.example.demo.application;
 
 import java.util.ArrayList;
 
-import com.example.demo.Core.Accounts;
 import com.example.demo.Core.DriverEntity;
 import com.example.demo.Core.TripEntity;
 import com.example.demo.Core.UserEntity;
@@ -25,16 +24,14 @@ public class UserService implements IUserService
 	@Override
 	public boolean CreateUser(UserEntity User)
 	{	return UserPersistence.AddUser(User);	}
+	
+	@Override
+    public  UserEntity GetUser(int id) 
+    {	return UserPersistence.GetUser(id);	}
 
 	@Override
 	public ArrayList<UserEntity> GetUsersModel() 
 	{	return UserPersistence.GetUsers();	}
-	
-	@Override
-    public  UserEntity GetUser(int id) 
-    {
-		return UserPersistence.GetUser(id);
-    }
 	
 	@Override
 	public UserEntity LogIn(String email, String password)
@@ -53,23 +50,17 @@ public class UserService implements IUserService
 		//CHECKS IN INTERFACE IF NULL-> USER NOT FOUND. REENTER EMAIL AND PASSWORD
 		return null;
 	}
-
+	
 	@Override
-	public boolean RegisterAsDriver(String NId, String DLicense) {
-		DriverEntity DriverEntity =new DriverEntity(CurrentUser.getUsername(), CurrentUser.getPassword()
-		,CurrentUser.getMobileNo(),CurrentUser.getEmail(),NId,DLicense);
-		
-		return DriverPersistence.AddToPending(DriverEntity);
-	}
-
-	@Override
-	public String LogOut() {
+	public String LogOut() 
+	{
 		CurrentUser.setLoggedIn(false);
 		return "User is now logged out";
 	}
 
 	@Override
-	public TripEntity CreateTrip(String Src, String Dest) {
+	public TripEntity CreateTrip(String Src, String Dest) 
+	{
 		if(CurrentUser.isLoggedIn())
 		{
 			TripEntity Trip=new TripEntity(Src,Dest);
@@ -78,13 +69,12 @@ public class UserService implements IUserService
 			return Trip;
 		}
 		else 
-			return null; 
-		
-		
+			return null; 	
 	}
 
 	@Override
-	public ArrayList<TripEntity> GetOffers() {
+	public ArrayList<TripEntity> GetOffers() 
+	{
 		 ArrayList<TripEntity> Offer=new ArrayList<TripEntity>();
 		 ArrayList<TripEntity> DriverOffers=OfferPersistence.GetAllOffers();
 		 for(int i=0;i<DriverOffers.size();i++)
@@ -95,13 +85,14 @@ public class UserService implements IUserService
 			 }
 		 }
 		 if(Offer.isEmpty())
-				Offer.add(null);
+				Offer.add(null);	 
 		 
 		 return Offer;
 	 }
 
 	@Override
-	public boolean AcceptOffer(int TripId, double price, String drivername) {
+	public boolean AcceptOffer(int TripId, double price, String drivername) 
+	{
 		ArrayList<TripEntity> DriverOffers=OfferPersistence.GetAllOffers();
 		boolean TripRemover=false;
 		for(int i=0;i<DriverOffers.size();i++)
@@ -120,18 +111,12 @@ public class UserService implements IUserService
 		RequestPersistence.RemoveFromPending(TripId);
 		OfferPersistence.RemoveFromAllOffers(TripId);
 		
-		return TripRemover;
-		
-		
-		
-		
-		
-		
-		
+		return TripRemover;	
 	}
 
 	@Override
-	public ArrayList<TripEntity> ViewTripHistory() {
+	public ArrayList<TripEntity> ViewTripHistory() 
+	{
 		 ArrayList<TripEntity> UserHistory=new ArrayList<TripEntity>();
 		 ArrayList<TripEntity> AllHistory=RequestPersistence.GetTripHistory();
 		 for(int i=0;i<AllHistory.size();i++)
@@ -148,7 +133,8 @@ public class UserService implements IUserService
 	 }
 
 	@Override
-	public boolean RateTrip(int TripId,int rating) {
+	public boolean RateTrip(int TripId,int rating) 
+	{
 		ArrayList<TripEntity> History=ViewTripHistory();
 		boolean rated=false;
 		for(int i=0;i<History.size();i++)
@@ -161,8 +147,16 @@ public class UserService implements IUserService
 			}
 		}
 		
-		return rated;
+		return rated;	
+	}
+	
+	@Override
+	public boolean RegisterAsDriver(String NId, String DLicense) 
+	{
+		DriverEntity DriverEntity =new DriverEntity(CurrentUser.getUsername(), CurrentUser.getPassword()
+		,CurrentUser.getMobileNo(),CurrentUser.getEmail(),NId,DLicense);
 		
+		return DriverPersistence.AddToPending(DriverEntity);
 	}
 
 }

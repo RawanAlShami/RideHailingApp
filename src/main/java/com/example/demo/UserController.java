@@ -1,8 +1,6 @@
 package com.example.demo;
 
 import java.util.ArrayList;
-
-import com.example.demo.Core.Accounts;
 import com.example.demo.Core.TripEntity;
 import com.example.demo.Core.UserEntity;
 import com.example.demo.application.UserService;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController 
 {
+	//SERVICES
 	protected UserService UserService;
 	
 	public UserController()
@@ -40,28 +39,19 @@ public class UserController
 	
 	@GetMapping("/UserLogIn/{email}/{password}")
 	public UserEntity LogIn(@PathVariable String email,@PathVariable String password)
-	{	return UserService.LogIn(email, password);}
+	{	return UserService.LogIn(email, password);	}
 	
 	@GetMapping("/UserLogOut")
 	public String LogOut() 
-	{return UserService.LogOut();}
+	{	return UserService.LogOut();	}
 	
 	@GetMapping("/CreateTrip/{Src}/{Dest}")
 	public TripEntity CreateTrip(@PathVariable String Src,@PathVariable String Dest)
-	{return UserService.CreateTrip(Src, Dest);}
+	{	return UserService.CreateTrip(Src, Dest);	}
 	
 	@GetMapping("/GetOffers")
 	public ArrayList<TripEntity> GetOffers()
-	{return UserService.GetOffers();}
-	
-	@GetMapping("/RegisterAsDriver/{NId}/{DLicense}")
-	public String RegisterAsDriver(@PathVariable String NId,@PathVariable String DLicense)
-	{
-		if(UserService.RegisterAsDriver(NId, DLicense))
-			return "Driver Account Created, Request Is Pending";
-		else
-			return "Could Not Create Driver Account";
-	}
+	{	return UserService.GetOffers();	}
 	
 	@GetMapping("/AcceptOffer/{TripId}/{price}/{drivername}")
 	public String AcceptOffer(@PathVariable int TripId,@PathVariable double price,@PathVariable String drivername)
@@ -88,4 +78,13 @@ public class UserController
 			return "Failed To Rate Trip";
 	}
 	
+	@GetMapping("/RegisterAsDriver/{NId}/{DLicense}")
+	public String RegisterAsDriver(@PathVariable String NId,@PathVariable String DLicense)
+	{
+		if(UserService.RegisterAsDriver(NId, DLicense))
+			return "Driver Account Created, Request Is Pending";
+		else
+			return "Could Not Create Driver Account";
+	}
+
 }

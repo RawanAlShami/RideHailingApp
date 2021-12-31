@@ -6,7 +6,7 @@ import com.example.demo.Core.DriverEntity;
 
 public class DriverPersistence 
 {
-	//REPOSITORY
+	//ARRAYLISTS
 	protected static ArrayList<DriverEntity> PendingDrivers= new ArrayList<DriverEntity>();
 	protected static ArrayList<DriverEntity> Drivers = new ArrayList<DriverEntity>();
 	
@@ -20,17 +20,13 @@ public class DriverPersistence
 		PendingDrivers.trimToSize();
 	}
 	
-	public ArrayList<DriverEntity> GetPendingDrivers()
-	{return PendingDrivers;}
-	
 	public void AddToDrivers(DriverEntity DriverEntity)
 	{Drivers.add(DriverEntity);}
+	
+	public ArrayList<DriverEntity> GetPendingDrivers()
+	{return PendingDrivers;}
 	
 	public ArrayList<DriverEntity> GetDrivers()
 	{return Drivers;}
 	
-	
-	
-	
-
 }

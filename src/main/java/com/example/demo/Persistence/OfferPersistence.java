@@ -3,25 +3,27 @@ import java.util.ArrayList;
 
 import com.example.demo.Core.TripEntity;
 
-public class OfferPersistence {
+public class OfferPersistence 
+{
+	//ARRAYLIST
+	protected static ArrayList<TripEntity>  AllOffers=new ArrayList<TripEntity>();
 		
-		protected static ArrayList<TripEntity>  AllOffers=new ArrayList<TripEntity>();
+	//CRUD
+	public void AddToAllOffers(TripEntity TripEntity)
+	{ AllOffers.add(TripEntity); }
 		
-		public void AddToAllOffers(TripEntity TripEntity)
-		{AllOffers.add(TripEntity);}
-		
-		public void RemoveFromAllOffers(int id)
+	public void RemoveFromAllOffers(int id)
+	{
+		for(int i=0;i<AllOffers.size();i++)
 		{
-			for(int i=0;i<AllOffers.size();i++)
+			if(AllOffers.get(i).getTripId()==id)
 			{
-				if(AllOffers.get(i).getTripId()==id)
-				{
-					AllOffers.remove(i);
-				}
+				AllOffers.remove(i);
 			}
-			AllOffers.trimToSize();
 		}
+		AllOffers.trimToSize();
+	}
 		
-		public ArrayList<TripEntity> GetAllOffers()
-		{return AllOffers;}
+	public ArrayList<TripEntity> GetAllOffers()
+	{ return AllOffers; }
 }

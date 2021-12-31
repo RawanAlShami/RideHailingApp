@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Core.AdminEntity;
-import com.example.demo.Core.UserEntity;
 import com.example.demo.Core.DriverEntity;
 import com.example.demo.application.AdminService;
 
 @RestController
-public class AdminController {
+public class AdminController 
+{
 	protected AdminService AdminService;
 	
 	public AdminController()
@@ -64,8 +64,5 @@ public class AdminController {
 	{
 		return AdminService.ViewAcceptedDrivers(); 
 	}
-	
-	
-	
 	
 }

@@ -15,20 +15,11 @@ public class DriverEntity extends Accounts
 	protected DriverBalance DriverBalance=new DriverBalance();
 	
 	
-	//CONSTRUCTOR
+	//DEFAULT CONSTRUCTOR
 	public DriverEntity()
 	{UserID=UserIdCounter++;}
 	
-	@JsonIgnore
-	public DriverBalance GetBalance()
-	{return DriverBalance;}
-	
-	@JsonIgnore
-	public FavAreasPersistence getFavAreas() {
-		return FavAreas;
-	}
-	
-	
+	//PARAMETERIZED CONSTRUCTOR
 	public DriverEntity(String UName, String Pass, String MobNo, String Mail,  String NatId, String DLicense) 
 	{
 		super(UName,Pass, MobNo, Mail);
@@ -36,50 +27,38 @@ public class DriverEntity extends Accounts
 		NationalId=NatId;
 		Accepted=false;
 	}
-		
 	
+	//SETTERS AND GETTERS
+	@JsonIgnore
+	public DriverBalance GetBalance()
+	{ return DriverBalance; }
 	
-	public String getDriversLicense() {
-		return DriversLicense;
-	}
+	@JsonIgnore
+	public FavAreasPersistence getFavAreas() 
+	{ return FavAreas; }		
+	
+	public String getDriversLicense() 
+	{ return DriversLicense; }
 
+	public void setDriversLicense(String driversLicense) 
+	{ DriversLicense = driversLicense; }
 
+	public String getNationalId() 
+	{ return NationalId; }
 
-	public void setDriversLicense(String driversLicense) {
-		DriversLicense = driversLicense;
-	}
+	public void setNationalId(String nationalId) 
+	{ NationalId = nationalId; }
 
+	public boolean isAccepted() 
+	{ return Accepted; }
 
+	public void setAccepted(boolean accepted) 
+	{ Accepted = accepted; }
 
-	public String getNationalId() {
-		return NationalId;
-	}
-
-
-
-	public void setNationalId(String nationalId) {
-		NationalId = nationalId;
-	}
-
-
-
-	public boolean isAccepted() {
-		return Accepted;
-	}
-
-
-
-	public void setAccepted(boolean accepted) {
-		Accepted = accepted;
-	}
-
-	//PRIVATE MEMBER VARIABLES GETTERS
 	public String GetDriversLicense()
-	{return DriversLicense;}
+	{ return DriversLicense; }
 	
 	public String GetNationalId()
-	{return NationalId;}
-
-	
+	{ return NationalId; }
 	
 }

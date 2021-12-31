@@ -6,8 +6,12 @@ import com.example.demo.Core.AdminEntity;
 
 public class AdminPersistence 
 {
+	//ARRAYLIST
 	protected ArrayList<AdminEntity> Admins = new ArrayList<AdminEntity>();
 
+	//CRUD
+	public boolean AddAdmin(AdminEntity Admin)
+	{ return Admins.add(Admin); }
 	
 	public AdminEntity GetAdmin()
 	{
@@ -17,7 +21,5 @@ public class AdminPersistence
 		return Admins.get(0);
 	}
 	
-	public boolean AddAdmin(AdminEntity Admin)
-	{return Admins.add(Admin);}
 }
 

@@ -1,7 +1,5 @@
 package com.example.demo.Core;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 //ABSTRACT CLASS TO ENCAPSULATE ALL ACCOUNTS
 public abstract class Accounts
 {
@@ -31,46 +29,43 @@ public abstract class Accounts
 	
 	//SETTERS AND GETTERS
 	public int GetID()
-	{	return UserID;	}
+	{ return UserID; }
 	
 	public void setId(int userId)
-	{
-		UserID=userId;
-	}
+	{ UserID=userId; }
 	
 	public String getUsername() 
-	{	return Username;	}
+	{ return Username; }
 
 	public void setUsername(String username)
-	{	Username = username;	}
+	{ Username = username; }
 
 	public String getPassword() 
-	{	return Password;	}
+	{ return Password; }
 
 	public void setPassword(String password) 
-	{	Password = password;	}
+	{ Password = password; }
 
 	public int getUserID() 
-	{	return UserID;	}
+	{ return UserID; }
 
 	public String getEmail() 
-	{	return Email;	}
+	{ return Email;	}
 
-	
 	public void setEmail(String email) 
-	{	Email = email;	}
+	{ Email = email; }
 
 	public String getMobileNo() 
-	{	return MobileNo;	}
+	{ return MobileNo; }
 
 	public void setMobileNo(String mobileNo) 
-	{	MobileNo = mobileNo;	}
+	{ MobileNo = mobileNo; }
 
 	public boolean isLoggedIn() 
-	{	return LoggedIn;	}
+	{ return LoggedIn; }
 
 	public void setLoggedIn(boolean loggedIn) 
-	{	LoggedIn = loggedIn;	}
+	{ LoggedIn = loggedIn; }
 
 	//LOGIN FUNCTION
 	public void Login(String email, String password) 

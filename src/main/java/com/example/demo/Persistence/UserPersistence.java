@@ -1,12 +1,10 @@
 package com.example.demo.Persistence;
 import java.util.ArrayList;
-
-import com.example.demo.Core.Accounts;
 import com.example.demo.Core.UserEntity;
 
 public class UserPersistence 
 {
-	//USERS ARRAYLIST
+	//ARRAYLIST
 	private static ArrayList<UserEntity> Users = new ArrayList<UserEntity>();
 		
 	//CRUD 
