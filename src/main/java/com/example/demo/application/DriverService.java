@@ -3,6 +3,7 @@ package com.example.demo.application;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.Core.DriverBalance;
 import com.example.demo.Core.DriverEntity;
 import com.example.demo.Core.TripEntity;
 import com.example.demo.Core.UserEntity;
@@ -109,6 +110,32 @@ public class DriverService implements IDriverService {
 	@Override
 	public ArrayList<TripEntity> GetActiveTrips() {
 		return RequestPersistence.GetActiveTrips();
+	}
+
+	
+
+	@Override
+	public boolean EndRide(int TripId) {
+		ArrayList<TripEntity> ActiveTrips=RequestPersistence.GetActiveTrips();
+		boolean End=false;
+		for(int i=0;i<ActiveTrips.size();i++)
+		{
+			if(ActiveTrips.get(i).getTripId()==TripId)
+			{
+				CurrentDriver.GetBalance().setBalance(ActiveTrips.get(i).getPrice());
+				ActiveTrips.get(i).setCompletionStatus(true);
+				RequestPersistence.ActiveToHistory(ActiveTrips.get(i));
+				End=true;
+			}
+		}
+		ActiveTrips.trimToSize();
+		
+		return End;
+	}
+
+	@Override
+	public DriverBalance ViewBalance() {
+		return CurrentDriver.GetBalance();
 	}
 
 

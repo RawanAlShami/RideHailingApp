@@ -7,6 +7,7 @@ import java.util.List;
 import com.example.demo.application.IUserService;
 import com.example.demo.application.IDriverService;
 import com.example.demo.application.UserService;
+import com.example.demo.Core.DriverBalance;
 import com.example.demo.Core.DriverEntity;
 import com.example.demo.Core.TripEntity;
 import com.example.demo.Core.UserEntity;
@@ -88,6 +89,22 @@ public class DriverController {
    	public ArrayList<TripEntity> GetActiveTrips() {
    		return DriverService.GetActiveTrips();
    	}
+    
+    @GetMapping("/EndRide/{TripId}")
+   	public String EndRide(@PathVariable int TripId) {
+   		
+    	if(DriverService.EndRide(TripId))
+    		return "Trip ended successfully";
+    	else
+    		return "Could Not End Trip";
+   	}
+    
+    @GetMapping("/ViewBalance")
+   	public DriverBalance ViewBalance() {
+   		return DriverService.ViewBalance();
+   	}
+    
+    
     
     
     

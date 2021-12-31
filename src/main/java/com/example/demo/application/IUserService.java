@@ -25,6 +25,10 @@ public interface IUserService
 	 ArrayList<TripEntity> GetOffers();
 	 
 	 boolean AcceptOffer(int TripId,double price,String drivername);
+	 
+	 ArrayList<TripEntity>  ViewTripHistory();
+	 
+	 boolean RateTrip(int TripId,int rating);
 	
 	 
 	 

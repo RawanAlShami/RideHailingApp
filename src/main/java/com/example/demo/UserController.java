@@ -74,5 +74,18 @@ public class UserController
 			return "Offer Not Found";
 	}
 	
+	@GetMapping("/ViewTripHistory")
+	public ArrayList<TripEntity> ViewTripHistory()
+	{return UserService.ViewTripHistory();}
+	
+	
+	@GetMapping("/RateTrip/{TripId}/{rating}")
+	public String RateTrip(@PathVariable int TripId,@PathVariable int rating)
+	{
+		if(UserService.RateTrip(TripId, rating))
+			return "Trip Rated Successfully";
+		else
+			return "Failed To Rate Trip";
+	}
 	
 }

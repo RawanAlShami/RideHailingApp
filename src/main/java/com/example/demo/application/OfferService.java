@@ -22,7 +22,7 @@ public class OfferService implements IOfferService{
 			{
 				NewOffer.setSource(PendingTrips.get(i).GetSource());
 				NewOffer.setDestination(PendingTrips.get(i).GetDestination());
-				NewOffer.setStatus(PendingTrips.get(i).isStatus());
+				NewOffer.setCompletionStatus(PendingTrips.get(i).isCompletionStatus());
 				NewOffer.SetDriver(DriverEntity);
 				NewOffer.SetUser(PendingTrips.get(i).GetUser());
 				NewOffer.setTripId(PendingTrips.get(i).GetTripID());

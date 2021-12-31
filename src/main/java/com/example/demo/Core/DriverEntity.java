@@ -9,15 +9,19 @@ public class DriverEntity extends Accounts
 	private String DriversLicense;
 	private String NationalId;
 	protected boolean Accepted;
-	
 	@JsonIgnore
 	protected FavAreasPersistence FavAreas=new FavAreasPersistence();
+	@JsonIgnore
+	protected DriverBalance DriverBalance=new DriverBalance();
+	
 	
 	//CONSTRUCTOR
 	public DriverEntity()
-	{
-		UserID=UserIdCounter++;
-	}
+	{UserID=UserIdCounter++;}
+	
+	@JsonIgnore
+	public DriverBalance GetBalance()
+	{return DriverBalance;}
 	
 	@JsonIgnore
 	public FavAreasPersistence getFavAreas() {

@@ -129,6 +129,41 @@ public class UserService implements IUserService
 		
 		
 	}
-	
+
+	@Override
+	public ArrayList<TripEntity> ViewTripHistory() {
+		 ArrayList<TripEntity> UserHistory=new ArrayList<TripEntity>();
+		 ArrayList<TripEntity> AllHistory=RequestPersistence.GetTripHistory();
+		 for(int i=0;i<AllHistory.size();i++)
+		 {
+			 if(AllHistory.get(i).GetUser().GetID()==CurrentUser.getUserID())
+			 {
+				 UserHistory.add(AllHistory.get(i));
+			 }
+		 }
+		 if(UserHistory.isEmpty())
+			 UserHistory.add(null);
+		 
+		 return UserHistory;
+	 }
+
+	@Override
+	public boolean RateTrip(int TripId,int rating) {
+		ArrayList<TripEntity> History=ViewTripHistory();
+		boolean rated=false;
+		for(int i=0;i<History.size();i++)
+		{
+			if(History.get(i).getTripId()==TripId)
+			{
+				History.get(i).setRating(rating);
+				History.get(i).setRated(true);
+				rated=true;
+			}
+		}
+		
+		return rated;
+		
+	}
+
 }
 

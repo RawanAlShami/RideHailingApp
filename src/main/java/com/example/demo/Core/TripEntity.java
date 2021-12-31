@@ -7,11 +7,29 @@ public class TripEntity
 	protected String Source;
 	protected String Destination;
 	protected double Price=0;
-	protected boolean Status;
+	protected boolean CompletionStatus;
 	protected boolean OfferAcceptance;
 	private UserEntity UserInfo;
 	private DriverEntity DriverInfo;
+	private int Rating;
+	private boolean Rated;
 	
+	public int getRating() {
+		return Rating;
+	}
+
+	public void setRating(int rating) {
+		Rating = rating;
+	}
+
+	public boolean isRated() {
+		return Rated;
+	}
+
+	public void setRated(boolean rated) {
+		Rated = rated;
+	}
+
 	//DEFAULT CONSTRUCTOR
 	public TripEntity() {}
 	
@@ -21,8 +39,10 @@ public class TripEntity
 		Source=Src;
 		Destination=Dest;
 		TripId=counter++;
-		Status=false;
+		CompletionStatus=false;
 		OfferAcceptance=false;
+		Rated=false;
+		Rating=0;
 	}
 	
 	public int getTripId() {
@@ -65,12 +85,12 @@ public class TripEntity
 		Price = price;
 	}
 
-	public boolean isStatus() {
-		return Status;
+	public boolean isCompletionStatus() {
+		return CompletionStatus;
 	}
 
-	public void setStatus(boolean status) {
-		Status = status;
+	public void setCompletionStatus(boolean status) {
+		CompletionStatus = status;
 	}
 
 	public boolean isOfferAcceptance() {

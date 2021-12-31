@@ -3,6 +3,7 @@ package com.example.demo.application;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.Core.DriverBalance;
 import com.example.demo.Core.DriverEntity;
 import com.example.demo.Core.TripEntity;
 import com.example.demo.Core.UserEntity;
@@ -28,4 +29,8 @@ public interface IDriverService {
 	boolean OfferPrice(int TripId,double Price);
 	
 	ArrayList<TripEntity> GetActiveTrips();
+	
+	boolean EndRide(int TripId);
+	
+	DriverBalance ViewBalance();
 }
